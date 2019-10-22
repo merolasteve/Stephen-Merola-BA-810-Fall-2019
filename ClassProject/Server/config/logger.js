@@ -1,5 +1,6 @@
 var winston = require('winston');
 require('winston-daily-rotate-file');
+
 const logger = winston.createLogger({
     level: 'info',
     format: winston.format.json(),

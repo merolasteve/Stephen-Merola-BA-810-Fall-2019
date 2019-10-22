@@ -1,7 +1,7 @@
 var express = require('express');
 var morgan = require('morgan');
-//var logger = require('logger');
-var logger = require('./logger2');
+var logger = require('./logger');
+//var logger = require('./logger2');
 
 module.exports = function (app, config) {
   app.use(function (req, res, next) {
