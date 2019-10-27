@@ -2,6 +2,7 @@ var express = require('express');
 var morgan = require('morgan');
 var logger = require('./logger');
 //var logger = require('./logger2');
+const bodyParser = require('body-parser');
 
 module.exports = function (app, config) {
   app.use(function (req, res, next) {
