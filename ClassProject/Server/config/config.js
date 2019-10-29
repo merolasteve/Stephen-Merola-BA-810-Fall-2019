@@ -4,20 +4,19 @@ var path = require('path'),
 var config = {  
     development: {    
             root: rootPath,    
-            app: {      name: 'UCCSS'    },    
-            port: 5000,  
+            app: {      name: 'Todos'    },    
+            port: 5000,
+            db: 'mongodb://127.0.0.1/todo-dev'  
     },
 
-    test: {
-        root: rootPath,
-        app: { name: 'ThingsToDo' },
-        port: 4000,
-        },
-
+    
     production: {    
             root: rootPath,    
-            app: {      name: 'UCCSS'    },    
-            port: 80,  }
+            app: {      name: 'Todos'    },    
+            port: 80,  
+            db: 'mongodb://127.0.0.1/todo'
+        },
+
     };
 
 module.exports = config[env];
