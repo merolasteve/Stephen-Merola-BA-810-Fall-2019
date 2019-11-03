@@ -21,7 +21,7 @@ const logger = winston.createLogger({
             maxFiles: '14d'
         })
     ]
-})
+});
 
 if (process.env.NODE_ENV !== 'production') {
     logger.add(new winston.transports.Console({

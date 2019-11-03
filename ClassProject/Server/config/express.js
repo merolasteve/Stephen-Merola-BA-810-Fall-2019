@@ -7,21 +7,21 @@ const fs = require('fs');
 
 module.exports = function (app, config) {
   app.use(function (req, res, next) {
-    logger.log('info','Request from ' + req.connection.remoteAddress);
+    logger.log('info', 'Request from ' + req.connection.remoteAddress);
     next();
   });
 
-  if(process.env.NODE_ENV !== 'test') {
+  if (process.env.NODE_ENV !== 'test') {
     app.use(morgan('dev'));
     app.use(function (req, res, next) {
-      logger.log('info','Request from ' + req.connection.remoteAddress, 'info');
+      logger.log('info', 'Request from ' + req.connection.remoteAddress, 'info');
       next();
     });
   }
-  
+
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({
-      extended: true
+    extended: true
   }));
 
   app.use(express.static(config.root + '/public'));
@@ -32,13 +32,13 @@ module.exports = function (app, config) {
   });
   var controllers = fs.readdirSync('./app/controllers');
   controllers.forEach((controller) => {
-      contoller = require('../app/controllers/' + controller)(app, config);
+    contoller = require('../app/controllers/' + controller)(app, config);
   });
 
-  app.get('/', function(req,res){
+  app.get('/', function (req, res) {
     res.send('Hello World!');
   });
-  
+
   app.use(function (req, res) {
     res.type('text/plan');
     res.status(404);
@@ -51,5 +51,5 @@ module.exports = function (app, config) {
     res.send('500 Sever Error');
   });
 
-  logger.log('info',"Starting application");
+  logger.log('info', "Starting application");
 };

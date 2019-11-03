@@ -13,7 +13,14 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "grunt-env": "^1.0.1",
+    "jshint-stylish": "^2.2.1",
     "mongoose": "^5.7.7",
     "nodemon": "^1.19.4"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.4",
+    "grunt-contrib-jshint": "^2.1.0",
+    "grunt-contrib-nodemon": "^0.5.4"
   }
 }
