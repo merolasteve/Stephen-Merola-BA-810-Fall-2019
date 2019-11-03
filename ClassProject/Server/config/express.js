@@ -13,6 +13,7 @@ module.exports = function (app, config) {
 
   if (process.env.NODE_ENV !== 'test') {
     app.use(morgan('dev'));
+    
     app.use(function (req, res, next) {
       logger.log('info', 'Request from ' + req.connection.remoteAddress, 'info');
       next();

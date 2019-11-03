@@ -15,8 +15,8 @@ it('it should GET the index.html file', (done) => {
         .end((err, res) => {
             res.should.have.status(200);
             res.should.be.html; //response should be html
-         done();
-         });
+            done();
+        });
 });
 
 it('it should return 404', (done) => {
@@ -24,7 +24,7 @@ it('it should return 404', (done) => {
         .get('/index2.html')
         .end((err, res) => {
             res.should.have.status(404);
-        done();
+            done();
         });
 });
 
