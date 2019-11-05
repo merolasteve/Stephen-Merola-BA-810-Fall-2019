@@ -6,20 +6,24 @@ var config = {
             root: rootPath,    
             app: {      name: 'Todos'   },    
             port: 5000,
-            db: 'mongodb://127.0.0.1/todo-dev'  
+            db: 'mongodb://127.0.0.1/todo-dev',
+            secret: "cayennedlikedhistreats"  
     },
 
     test: {
         root: rootPath,
         app: { name: 'ThingsToDo'   },
         port: 4000,
+        db: 'mongodb://127.0.0.1/todo-test',
+        secret: "cayennedlikedhistreats"
     },
     
     production: {    
             root: rootPath,    
             app: {      name: 'Todos'   },    
             port: 80,  
-            db: 'mongodb://127.0.0.1/todo'
+            db: 'mongodb://127.0.0.1/todo',
+            secret: "cayennedlikedhistreats"
         },
 
     };

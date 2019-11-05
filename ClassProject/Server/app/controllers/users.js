@@ -12,14 +12,18 @@ module.exports = function (app, config) {
             logger.log('info', 'Create user');
             res.status(201).json({message: 'Created user'});*/
 
-    var users = [{ name: 'John', email: 'woo@hoo.com' },
-    { name: 'Betty', email: 'loo@woo.com' },
-    { name: 'Hal', email: 'boo@woo.com' }
-    ];
+
 
     router.route('/users').get((req, res, next) => { ///apis/users becasue api already appended above
         logger.log('info', 'Get all users'); //every route should have a log - info wont run in prod
+        
+        var users = [{ name: 'John', email: 'woo@hoo.com' },
+        { name: 'Betty', email: 'loo@woo.com' },
+        { name: 'Hal', email: 'boo@woo.com' }
+        ];
+        
         res.status(200).json({ message: 'Got all users' }); //200 = a secussful get - temp, must be deleted later
+
     });
 
     router.route('/users/login').post((req, res, next) => {
@@ -38,6 +42,13 @@ module.exports = function (app, config) {
     router.route('/users').post((req, res, next) => {
         logger.log('info', 'Create user');
         res.status(201).json({ message: 'Created user' });
+    });
+
+    router.route('/test/:id/:name').get((req, res, next) => {
+        var id = req.params.id;
+        var name = req.params.name;
+        var obj = { 'id': id, ' name ': name };
+        res.status(200).json(obj);
     });
 
 };
