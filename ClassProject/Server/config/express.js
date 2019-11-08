@@ -4,6 +4,9 @@ var logger = require('./logger');
 //var logger = require('./logger2');
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const mongoose = require('mongoose');
+
+
 
 module.exports = function (app, config) {
   app.use(function (req, res, next) {
@@ -14,11 +17,25 @@ module.exports = function (app, config) {
   if (process.env.NODE_ENV !== 'test') {
     app.use(morgan('dev'));
 
+    mongoose.set('debug', true);
+    mongoose.connection.once('open', function callback() {
+      logger.log('info', "Mongoose connected to the database");
+    });
+
     app.use(function (req, res, next) {
       logger.log('info', 'Request from ' + req.connection.remoteAddress, 'info');
       next();
     });
   }
+
+
+  logger.log('info', "Loading Mongoose functionality");
+  mongoose.Promise = require('bluebird');
+  mongoose.connect(config.db);
+  var db = mongoose.connection;
+  db.on('error', function () {
+    throw new Error('unable to connect to database at ' + config.db);
+  });
 
   /*app.use(function (err, req, res, next) {
     console.log(err);
@@ -46,6 +63,7 @@ module.exports = function (app, config) {
   controllers.forEach((controller) => {
     contoller = require('../app/controllers/' + controller)(app, config);
   });
+
 
   app.get('/', function (req, res) {
     res.send('Hello World!');
