@@ -4,17 +4,10 @@ var express = require('express'),
     logger = require('../../config/logger');
     mongoose = require('mongoose'),
     User = mongoose.model('User');
+
 module.exports = function (app, config) {
     app.use('/api', router); //appends 'api' to all routes
-
-
-    //Post Route example
-    /*router.route('/users').post((req, res, next) => {
-            logger.log('info', 'Create user');
-            res.status(201).json({message: 'Created user'});*/
-
-
-
+        
     router.route('/users').get((req, res, next) => { ///apis/users becasue api already appended above
         logger.log('info', 'Get all users'); //every route should have a log - info wont run in prod
         var query = User.find()
@@ -22,7 +15,7 @@ module.exports = function (app, config) {
             .exec()
             .then(result => {
                 if (result && result.length) {
-                    res.status(200).json({ message: 'Got all users' }); //200 = a secussful get - temp, must be deleted later
+                    res.status(200).json(result); //200 = a secussful get - temp, must be deleted later
                 } else {
                     res.status(404).json({ message: "No users" });
                 }
@@ -30,14 +23,6 @@ module.exports = function (app, config) {
             .catch(err => {
                 return next(err);
             });
-    });
-
-    router.route('/users/login').post((req, res, next) => {
-        logger.log('info', '%s logging in', req.body.email);
-        var email = req.body.email
-        var password = req.body.password;
-        var obj = { 'email': email, 'password': password };
-        res.status(201).json(obj);
     });
 
     router.route('/users/:id').get((req, res, next) => {
@@ -50,11 +35,19 @@ module.exports = function (app, config) {
         var user = new User(req.body);
         user.save()
             .then(result => {
-                res.status(201).json({ message: 'Created user' });
+                res.status(201).json(result);
             })
             .catch(err => {
                 return next(err);
             });
+    });
+
+    router.route('/users/login').post((req, res, next) => {
+        logger.log('info', '%s logging in', req.body.email);
+        var email = req.body.email
+        var password = req.body.password;
+        var obj = { 'email': email, 'password': password };
+        res.status(201).json(obj);
     });
 
     router.route('/test/:id/:name').get((req, res, next) => {

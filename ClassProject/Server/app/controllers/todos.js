@@ -6,6 +6,11 @@ var express = require('express'),
 module.exports = function (app, config) {
         app.use('/api', router); //appends 'api' to all routes
 
+        router.route('/todos/:id').get((req, res, next) => {
+            logger.log('info','Get user %s', req.params.id);
+            res.status(200).json({id: req.params.id}); 
+        });
+
         //routes do here - watch brackets!!!
         router.route('/todos').get((req, res, next) => {
             logger.log('info','Get all users');
@@ -26,10 +31,7 @@ module.exports = function (app, config) {
             res.status(201).json(obj);
         });
 
-        router.route('/todos/:id').get((req, res, next) => {
-            logger.log('info','Get user %s', req.params.id);
-            res.status(200).json({id: req.params.id}); 
-        }); 
+         
 
         router.route('/todos').post((req, res, next) => {
             logger.log('info','Create user');
