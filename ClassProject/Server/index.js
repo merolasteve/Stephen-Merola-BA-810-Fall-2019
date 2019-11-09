@@ -1,9 +1,9 @@
 var express = require('express');
 var config = require('./config/config');
-
 var app = express();
-
 var port = config.port|| 3000
+
+
 
 require('./config/express')(app, config);
 

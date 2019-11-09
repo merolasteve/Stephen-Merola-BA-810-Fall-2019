@@ -7,7 +7,7 @@ var express = require('express'),
 
 module.exports = function (app, config) {
     app.use('/api', router); //appends 'api' to all routes
-        
+
     router.route('/users').get((req, res, next) => { ///apis/users becasue api already appended above
         logger.log('info', 'Get all users'); //every route should have a log - info wont run in prod
         var query = User.find()
@@ -55,6 +55,28 @@ module.exports = function (app, config) {
         var name = req.params.name;
         var obj = { 'id': id, ' name ': name };
         res.status(200).json(obj);
+    });
+
+    router.route('/users/:id').put((req, res, next) => {
+        logger.log('info', 'update user %s', req.params.id);
+        User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, multi: false })
+            .then(user => {
+                res.status(200).json(user);
+            })
+            .catch(error => {
+                return next(error);
+            });
+    });
+
+    router.route('/users/:id').delete((req, res, next) => {
+        logger.log('info', 'Delete user ' + req.params.id);
+        User.remove({ _id: req.params.id })
+            .then(user => {
+                res.status(200).json({ msg: "User Deleted" });
+            })
+            .catch(error => {
+                return next(error);
+            });
     });
 
 };
