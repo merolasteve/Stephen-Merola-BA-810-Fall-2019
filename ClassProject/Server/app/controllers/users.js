@@ -39,11 +39,21 @@ module.exports = function (app, config) {
 
     router.route('/users/:id').get((req, res, next) => {
         logger.log('info', 'Get user %s', req.params.id);
-        res.status(200).json({ id: req.params.id });
+        User.findById(req.params.id)
+            .then(user => {
+                if (user) {
+                    res.status(200).json(user);
+                } else {
+                    res.status(404).json({ message: "No user found" });
+                }
+            })
+            .catch(error => {
+                return next(error);
+            });
     });
 
     router.route('/users/:id').put((req, res, next) => {
-        logger.log('info', 'update user %s', req.params.id);
+        logger.log('info', 'Updated user %s', req.params.id);
         User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, multi: false })
             .then(user => {
                 res.status(200).json(user);

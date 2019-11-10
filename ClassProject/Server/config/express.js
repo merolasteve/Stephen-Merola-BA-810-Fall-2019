@@ -49,8 +49,9 @@ module.exports = function (app, config) {
 
   app.use(express.static(config.root + '/public'));
 
-  //load models & controllers
-  var models = fs.readdirSync('./app/models');
+  //load models & controllers (2 models & 2 controllers, user & todos)
+  //models load first because they use controllers
+  var models = fs.readdirSync('./app/models'); //fs loops through array and loads all models and controllers
   models.forEach((model) => {
     require('../app/models/' + model);
   });
@@ -71,7 +72,9 @@ module.exports = function (app, config) {
     res.send('404 Not Found');
   });
   app.use(function (err, req, res, next) {
-    console.error(err.stack);
+    if (process.env.NODE_ENV !== 'test') {
+      console.error(err.stack);
+    }
     res.type('text/plan');
     res.status(500);
     res.send('500 Sever Error');
