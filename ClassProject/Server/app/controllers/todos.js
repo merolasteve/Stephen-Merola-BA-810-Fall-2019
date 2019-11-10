@@ -9,11 +9,6 @@ var express = require('express'),
 module.exports = function (app, config) {
     app.use('/api', router); //appends 'api' to all routes
 
-    router.route('/todos/:id').get((req, res, next) => {
-        logger.log('info', 'Get user %s', req.params.id);
-        res.status(200).json({ id: req.params.id });
-    });
-
     //routes do here - watch brackets!!!
     router.route('/todos').get((req, res, next) => {
         logger.log('info', 'Get all todos');
@@ -37,10 +32,32 @@ module.exports = function (app, config) {
         res.status(201).json({ message: 'Created user' });
     });
 
-    router.route('/todos').get((req, res, next) => { //apis/users becasue api already appended above
-        logger.log('info', 'Get all users'); //every route should have a log - info wont run in prod
-        res.status(200).json({ message: 'Got all users' }); //200 = a secussful get - temp, must be deleted later
+    router.route('/todos/:id').get((req, res, next) => {
+        logger.log('info', 'Get user %s', req.params.id);
+        res.status(200).json({ id: req.params.id });
     });
+
+    router.route('/todos/:id').put((req, res, next) => {
+        logger.log('info', 'update todos', req.params.id);
+        Todo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, multi: false })
+            .then(user => {
+                res.status(200).json(user);
+            })
+            .catch(error => {
+                return next(error);
+            });
+    });
+
+    router.route('/todos/:id').delete((req, res, next) => {
+        logger.log('info', 'Delete todo ' + req.params.id);
+        Todo.remove({ _id: req.params.id })
+            .then(user => {
+                res.status(200).json({ msg: "Todo Deleted" });
+            })
+            .catch(error => {
+                return next(error);
+            });
+    });    
 
     router.route('/todos/login').post((req, res, next) => {
         logger.log('info', '%s logging in', req.body.email);
@@ -67,27 +84,7 @@ module.exports = function (app, config) {
             });
     });
 
-    router.route('/todos/:id').put((req, res, next) => {
-        logger.log('info', 'update todos', req.params.id);
-        Todo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, multi: false })
-            .then(user => {
-                res.status(200).json(user);
-            })
-            .catch(error => {
-                return next(error);
-            });
-    });
-
-    router.route('/todos/:id').delete((req, res, next) => {
-        logger.log('info', 'Delete todo ' + req.params.id);
-        Todo.remove({ _id: req.params.id })
-            .then(user => {
-                res.status(200).json({ msg: "Todo Deleted" });
-            })
-            .catch(error => {
-                return next(error);
-            });
-    });
+    
     
 
 };

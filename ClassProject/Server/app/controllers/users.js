@@ -25,11 +25,6 @@ module.exports = function (app, config) {
             });
     });
 
-    router.route('/users/:id').get((req, res, next) => {
-        logger.log('info', 'Get user %s', req.params.id);
-        res.status(200).json({ id: req.params.id });
-    });
-
     router.route('/users').post((req, res, next) => {
         logger.log('info', 'Create user');
         var user = new User(req.body);
@@ -39,6 +34,33 @@ module.exports = function (app, config) {
             })
             .catch(err => {
                 return next(err);
+            });
+    });
+
+    router.route('/users/:id').get((req, res, next) => {
+        logger.log('info', 'Get user %s', req.params.id);
+        res.status(200).json({ id: req.params.id });
+    });
+
+    router.route('/users/:id').put((req, res, next) => {
+        logger.log('info', 'update user %s', req.params.id);
+        User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, multi: false })
+            .then(user => {
+                res.status(200).json(user);
+            })
+            .catch(error => {
+                return next(error);
+            });
+    });        
+
+    router.route('/users/:id').delete((req, res, next) => {
+        logger.log('info', 'Delete user ' + req.params.id);
+        User.remove({ _id: req.params.id })
+            .then(user => {
+                res.status(200).json({ msg: "User Deleted" });
+            })
+            .catch(error => {
+                return next(error);
             });
     });
 
@@ -55,28 +77,6 @@ module.exports = function (app, config) {
         var name = req.params.name;
         var obj = { 'id': id, ' name ': name };
         res.status(200).json(obj);
-    });
-
-    router.route('/users/:id').put((req, res, next) => {
-        logger.log('info', 'update user %s', req.params.id);
-        User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, multi: false })
-            .then(user => {
-                res.status(200).json(user);
-            })
-            .catch(error => {
-                return next(error);
-            });
-    });
-
-    router.route('/users/:id').delete((req, res, next) => {
-        logger.log('info', 'Delete user ' + req.params.id);
-        User.remove({ _id: req.params.id })
-            .then(user => {
-                res.status(200).json({ msg: "User Deleted" });
-            })
-            .catch(error => {
-                return next(error);
-            });
     });
 
 };
