@@ -1,7 +1,7 @@
 'use strict' //forces you to use proper syntax
 var express = require('express'),
     router = express.Router(), //router - object that does all routing
-    logger = require('../../config/logger');
+    logger = require('../../config/logger'),
     mongoose = require('mongoose'),
     Todo = mongoose.model('Todo');
 
