@@ -4,12 +4,11 @@ var path = require('path'),
 var config = {
     development: {
         root: rootPath,
-        app: { name: 'Todos' },
+        app: { name: 'UCCSS' },
         port: 5000,
         db: 'mongodb://127.0.0.1/todo-dev',
         secret: "cayennedlikedhistreats"
     },
-
     test: {
         root: rootPath,
         app: { name: 'ThingsToDo' },
@@ -20,12 +19,11 @@ var config = {
 
     production: {
         root: rootPath,
-        app: { name: 'Todos' },
+        app: { name: 'UCCSS' },
         port: 80,
-        db: 'mongodb://127.0.0.1/todo',
+        db: 'mongodb://127.0.0.1/todo-production',
         secret: "cayennedlikedhistreats"
-    },
-
+    }
 };
 
 module.exports = config[env];

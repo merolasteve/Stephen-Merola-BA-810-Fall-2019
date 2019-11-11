@@ -1,17 +1,15 @@
-'use strict' //forces you to use proper syntax
+'use strict'
 var express = require('express'),
-    router = express.Router(), //router - object that does all routing
+    router = express.Router(),
     logger = require('../../config/logger'),
     mongoose = require('mongoose'),
-    Todo = mongoose.model('Todo');
-
+    Todo = mongoose.model('todos');
 
 module.exports = function (app, config) {
-    app.use('/api', router); //appends 'api' to all routes
-
-    //routes do here - watch brackets!!!
+    app.use('/api', router);//middleware that installs the router all routes will go below here in this loop only 
     router.route('/todos').get((req, res, next) => {
         logger.log('info', 'Get all todos');
+
         var query = Todo.find()
             .sort(req.query.order)
             .exec()
@@ -25,11 +23,13 @@ module.exports = function (app, config) {
             .catch(err => {
                 return next(err);
             });
+
     });
 
     router.route('/todos/user/:id').get((req, res, next) => {
-        logger.log('info', 'Get all a users todos');
-        var query = Todo.find({userID: req.params.id})
+        logger.log('info', 'Get all user todos' + req.params.id);
+
+        var query = Todo.find()
             .sort(req.query.order)
             .exec()
             .then(result => {
@@ -42,63 +42,62 @@ module.exports = function (app, config) {
             .catch(err => {
                 return next(err);
             });
-    });
 
-    router.route('/todos').post((req, res, next) => {
-        logger.log('info', 'Create todo');
-        var todo = new Todo(req.body);
-        todo.save()
-            .then(result => {
-                res.status(201).json(result);
-            })
-            .catch(err => {
-                return next(err);
-            });
     });
 
     router.route('/todos/:id').get((req, res, next) => {
-        logger.log('info', 'Get user todos', req.params.id);
+        logger.log('info', 'Get todo %s' + req.params.id);
+
         Todo.findById(req.params.id)
-            .then(todo => {
-                if (todo) {
-                    res.status(200).json(todo);
+            .then(todos => {
+                if (todos) {
+                    res.status(200).json(todos);
                 } else {
-                    res.status(404).json({ message: "No todo found for user" });
+                    res.status(404).json({ message: "No Todos found" });
                 }
             })
             .catch(error => {
                 return next(error);
             });
+
     });
 
     router.route('/todos/:id').put((req, res, next) => {
-        logger.log('info', 'update todos', req.params.id);
+        logger.log('info', 'Get todo %s' + req.params.id);
+
         Todo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, multi: false })
-            .then(todo => {
-                res.status(200).json(todo);
+            .then(Todo => {
+                res.status(200).json(Todo);
             })
             .catch(error => {
                 return next(error);
             });
+
+    });
+    
+    router.route('/todos').post((req, res, next) => {
+        logger.log('info', 'Create Todo');
+        var todo = new Todo(req.body);
+        todo.save()
+            .then(result => {
+                res.status(201).json(result);
+            })
+            .catch((err) => {
+                return next(err);
+            });
+
     });
 
     router.route('/todos/:id').delete((req, res, next) => {
-        logger.log('info', 'Delete todo ' + req.params.id);
+        logger.log('info', 'Get todo %s' + req.params.id);
+
         Todo.remove({ _id: req.params.id })
-            .then(todo => {
+            .then(Todo => {
                 res.status(200).json({ msg: "Todo Deleted" });
             })
             .catch(error => {
                 return next(error);
             });
-    });    
-
-    router.route('/todos/login').post((req, res, next) => {
-        logger.log('info', '%s logging in', req.body.email);
-        var email = req.body.email
-        var password = req.body.password;
-        var obj = { 'email': email, 'password': password };
-        res.status(201).json(obj);
     });
 
 };
