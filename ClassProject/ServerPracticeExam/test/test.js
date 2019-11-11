@@ -53,40 +53,44 @@ describe('Widget', () => {
                 res.body.should.have.property('Foo');
                 res.body.Foo.should.be.a('string');
                 res.body.Foo.should.equal('Jane');
-                res.body.should.have.property('Woo'),
-                    res.body.Woo.should.be.a('Number');
+                res.body.should.have.property('Woo');
+                res.body.Woo.should.be.a('Number');
                 res.body.Woo.should.equal(12);
                 done();
             });
     });
-    // it('it should not POST a widget without id field', (done) => {
-    //   var widget = {
-    //     "Foo": "Jane",
-    //   "Woo": 12,
-    // "password": "pass"
-    //}
-    //chai.request(server)
-    //  .post('/api/widgets')
-    //.send(widget)
-    //.end((err, res) => {
-    //  res.should.have.status(500);
-    //done();
-    //});
-    //});
-    // it('it should not POST a user without email field', (done) => {
-    //     var user = {
-    //         "firstName": "Jane",
-    //         "lastName": "Doe",
-    //         "password": "pass"
-    //     }
-    //     chai.request(server)
-    //         .post('/api/users')
-    //         .send(user)
-    //         .end((err, res) => {
-    //             res.should.have.status(500);
-    //             done();
-    //         });
-    // });
+
+    /*
+    it('it should not POST a widget without id field', (done) => {
+        var widget = {
+            "Foo": "Jane",
+            "Woo": 12,
+            "password": "pass"
+        }
+        chai.request(server)
+            .post('/api/widgets')
+            .send(widget)
+            .end((err, res) => {
+                res.should.have.status(500);
+                done();
+            });
+    });
+    it('it should not POST a user without email field', (done) => {
+        var user = {
+            "firstName": "Jane",
+            "lastName": "Doe",
+            "password": "pass"
+        }
+        chai.request(server)
+            .post('/api/users')
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(500);
+                done();
+            });
+    });
+    */
+
     it('it should GET all the widgets', (done) => {
         var widget = new Widget({
             "Foo": "Jane",
