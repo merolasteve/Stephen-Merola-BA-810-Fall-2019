@@ -1,13 +1,13 @@
 'use strict'
 var express = require('express'),
     router = express.Router(),
-    logger = require('../../../Server/config/logger'),
+    logger = require('../../config/logger'),
     mongoose = require('mongoose'),
     //User = mongoose.model('User'),
-    passportService = require('../../../Server/config/passport'),
+    passportService = require('../../config/passport'),
     passport = require('passport');
-Widget = mongoose.model('Widget');
-
+    
+var Widget = mongoose.model('Widget');
 
 const requireLogin = passport.authenticate('local', { session: false });
 const requireAuth = passport.authenticate('jwt', { session: false });
@@ -56,7 +56,6 @@ module.exports = function (app, config) {
     //     res.status(201).json(obj);
     // });
     router.route('/widgets/login').post(requireLogin, login),
-
 
         router.route('/widgets/:id').get((req, res, next) => {
             logger.log('info', 'Get widget %s' + req.params.id);

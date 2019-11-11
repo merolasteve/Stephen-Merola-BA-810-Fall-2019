@@ -3,7 +3,7 @@ process.env.NODE_ENV = 'test';
 const mongoose = require("mongoose");
 //User = require('../app/models/users');
 //Todo = require('../app/models/todos');
-Widget = require('../../ServerPracticeExam/app/models/widgets');
+Widget = require('../app/models/widgets');
 //Require the dev-dependencies
 let chai = require('chai');
 let chaiHttp = require('chai-http');
@@ -11,7 +11,6 @@ let server = require('../index.js');
 let should = chai.should();
 
 chai.use(chaiHttp);
-
 it('it should GET the index.html file', (done) => {
     chai.request(server)
         .get('/index.html')
@@ -23,7 +22,6 @@ it('it should GET the index.html file', (done) => {
 
 
 });
-
 it('it should return 404', (done) => {
     chai.request(server).get('/index2.html')
         .end((err, res) => {
@@ -55,45 +53,40 @@ describe('Widget', () => {
                 res.body.should.have.property('Foo');
                 res.body.Foo.should.be.a('string');
                 res.body.Foo.should.equal('Jane');
-                res.body.should.have.property('Woo');
-                res.body.Woo.should.be.a('Number');
+                res.body.should.have.property('Woo'),
+                    res.body.Woo.should.be.a('Number');
                 res.body.Woo.should.equal(12);
                 done();
             });
     });
-
-    /*
-    it('it should not POST a widget without id field', (done) => {
-        var widget = {
-            "Foo": "Jane",
-            "Woo": 12,
-            "password": "pass"
-        }
-        chai.request(server)
-            .post('/api/widgets')
-            .send(widget)
-            .end((err, res) => {
-                res.should.have.status(500);
-                done();
-            });
-    });
-
-    it('it should not POST a user without email field', (done) => {
-        var user = {
-            "firstName": "Jane",
-            "lastName": "Doe",
-            "password": "pass"
-        }
-        chai.request(server)
-            .post('/api/users')
-            .send(user)
-            .end((err, res) => {
-                res.should.have.status(500);
-                done();
-            });
-    });
-    */
-
+    // it('it should not POST a widget without id field', (done) => {
+    //   var widget = {
+    //     "Foo": "Jane",
+    //   "Woo": 12,
+    // "password": "pass"
+    //}
+    //chai.request(server)
+    //  .post('/api/widgets')
+    //.send(widget)
+    //.end((err, res) => {
+    //  res.should.have.status(500);
+    //done();
+    //});
+    //});
+    // it('it should not POST a user without email field', (done) => {
+    //     var user = {
+    //         "firstName": "Jane",
+    //         "lastName": "Doe",
+    //         "password": "pass"
+    //     }
+    //     chai.request(server)
+    //         .post('/api/users')
+    //         .send(user)
+    //         .end((err, res) => {
+    //             res.should.have.status(500);
+    //             done();
+    //         });
+    // });
     it('it should GET all the widgets', (done) => {
         var widget = new Widget({
             "Foo": "Jane",
