@@ -29,7 +29,6 @@ module.exports = function (app, config) {
             .catch(err => {
                 return next(err);
             });
-
     });
 
     router.route('/users').post( (req, res, next) => {
@@ -45,14 +44,6 @@ module.exports = function (app, config) {
 
     });
 
-    // router.route('/users/login').post((req, res, next) => {
-    //     logger.log('info', '%s logging in', req.body.email);
-    //     var email = req.body.email
-    //     var password = req.body.password;
-
-    //     var obj = { 'email': email, 'password': password };
-    //     res.status(201).json(obj);
-    // });
     router.route('/users/login').post(requireLogin, login),
 
 
@@ -72,6 +63,7 @@ module.exports = function (app, config) {
             });
 
     });
+
     router.route('/users/:id').put( (req, res, next) => {
         logger.log('info', 'Get user %s', req.params.id);
 
@@ -84,6 +76,7 @@ module.exports = function (app, config) {
             });
 
     });
+
     router.put('/users/password/:id', function (req, res, next) {
         logger.log('info', 'Update user ' + req.params.id);
         User.findById(req.params.id)

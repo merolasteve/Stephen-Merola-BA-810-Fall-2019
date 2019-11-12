@@ -29,20 +29,18 @@ module.exports = function (app, config) {
         });
     }
 
-
-
     app.use(morgan('dev'));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
         extended: true
     }));
 
-
     app.use(bodyParser.json());
     var models = fs.readdirSync('./app/models');
     models.forEach((model) => {
         require('../app/models/' + model);
     });
+
     var controllers = fs.readdirSync('./app/controllers');
     controllers.forEach((controller) => {
         contoller = require('../app/controllers/' + controller)(app, config);
@@ -56,9 +54,6 @@ module.exports = function (app, config) {
         res.status(404);
         res.send('404 Not Found');
     });
-
-
-
     
     app.use(function (err, req, res, next) {
     
@@ -72,11 +67,8 @@ module.exports = function (app, config) {
     } else {
       res.status(500).send('500 Sever Error');
     }
-  });
+  });    
 
-    
-
-    //console.log("Starting application");saw this in video 
     logger.log('info', "Starting Application");
 
 };
