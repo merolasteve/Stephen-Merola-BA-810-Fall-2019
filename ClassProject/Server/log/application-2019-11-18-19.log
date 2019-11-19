@@ -14,3 +14,6 @@
 {"level":"info","message":"Get todo %s5dd340bd797e940864233eac"}
 {"level":"info","message":"Get todo %s5dd340bd797e940864233ead"}
 {"level":"info","message":"Get todo %s5dd340bd797e940864233eae"}
+{"level":"info","message":"Loading Mongoose functionality"}
+{"level":"info","message":"Starting Application"}
+{"level":"info","message":"Mongoose connected to the database"}
