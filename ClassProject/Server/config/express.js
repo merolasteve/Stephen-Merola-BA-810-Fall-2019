@@ -30,7 +30,6 @@ module.exports = function (app, config) {
     }
 
 
-
     app.use(morgan('dev'));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
@@ -58,23 +57,20 @@ module.exports = function (app, config) {
     });
 
 
-
-    
     app.use(function (err, req, res, next) {
-    
-    if (process.env.NODE_ENV !== 'test') {
         console.log(err);
-        console.log(err.stack,'error');
-    }
-    res.type('text/plan');
-    if(err.status){
-      res.status(err.status).send(err.message);
-    } else {
-      res.status(500).send('500 Sever Error');
-    }
-  });
+        if (process.env.NODE_ENV !== 'test') {
+            console.log(err.stack, 'error');
+        }
+        res.type('text/plan');
+        if (err.status) {
+            res.status(err.status).send(err.message);
+        } else {
+            res.status(500).send('500 Sever Error');
+        }
+    });
 
-    
+
 
     //console.log("Starting application");saw this in video 
     logger.log('info', "Starting Application");
