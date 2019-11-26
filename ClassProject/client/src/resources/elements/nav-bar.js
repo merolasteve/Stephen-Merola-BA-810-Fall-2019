@@ -24,7 +24,7 @@ export class NavBar {
     this.router.navigate('home');
   }
   logout() {
-    this.authenticated = true;
-    this.router.navigate('landing');
+    this.authenticated = false;
+    this.router.navigate('home');
   }
 }
