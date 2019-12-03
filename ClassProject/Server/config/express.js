@@ -6,6 +6,7 @@ const fs = require('fs');
 
 
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 module.exports = function (app, config) {
     logger.log('info', "Loading Mongoose functionality");
@@ -29,7 +30,8 @@ module.exports = function (app, config) {
         });
     }
 
-
+    app.use(cors({orgin:'http://localhost:9000'}));
+    
     app.use(morgan('dev'));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({

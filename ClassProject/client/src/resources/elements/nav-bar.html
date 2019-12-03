@@ -1,3 +1,4 @@
+
 <template>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Things Todo</a>
@@ -7,8 +8,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul show.bind="authenticated" class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#users">Users <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#users">Users <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#todos">Todos</a>
@@ -21,15 +22,22 @@
                 <form class="form-inline my-2 my-lg-0">
                     <div class="form-group mb-2">
                         <label for="staticEmail2" class="sr-only">Email</label>
-                        <input value.bind="email" type="text" class="form-control" id="staticEmail2" placeholder="email@example.com">
+                        <input value.bind="email" type="email" class="form-control" id="staticEmail2"
+                            placeholder="email@example.com">
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
                         <label for="inputPassword2" class="sr-only">Password</label>
-                        <input value.bind="password" type="password" class="form-control" id="inputPassword2" placeholder="Password">
+                        <input value.bind="password" type="password" class="form-control" id="inputPassword2"
+                            placeholder="Password">
                     </div>
-                    <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
+                    <button type="submit" click.trigger="login()" class="btn btn-primary mb-2">Confirm identity</button>
+                    <span style="margin-left:20px;" show.bind="loginError">${loginError}</span>
+                    <button click.trigger="openRegisterNewUser()" class="btn btn-primary mb-2">Register</button>
+                    
                 </form>
             </div>
         </div>
     </nav>
 </template>
+
+

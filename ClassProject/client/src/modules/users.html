@@ -1,4 +1,7 @@
 <template>
-    <h1>${message}</h1>
-    <button class="btn btn-primary" click.trigger="logout()">Logout</button>
+    <div class="container">
+        <h1> ${message}</h1>
+        <compose view="./components/editUser.html">
+        </compose>
+    </div>
 </template>
