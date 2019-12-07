@@ -29,7 +29,7 @@ module.exports = function (app, config) {
     router.route('/todos/user/:id').get((req, res, next) => {
         logger.log('info', 'Get all user todos' + req.params.id);
 
-        var query = Todo.find()
+        var query = Todo.find({_id:req.params.id})
             .sort(req.query.order)
             .exec()
             .then(result => {
@@ -65,7 +65,7 @@ module.exports = function (app, config) {
     router.route('/todos/:id').put((req, res, next) => {
         logger.log('info', 'Get todo %s' + req.params.id);
 
-        Todo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, multi: false })
+        Todo.findOneAndUpdate({_id:req.params.id}, req.body, { new: true, multi: false })
             .then(Todo => {
                 res.status(200).json(Todo);
             })
@@ -77,6 +77,7 @@ module.exports = function (app, config) {
     
     router.route('/todos').post((req, res, next) => {
         logger.log('info', 'Create Todo');
+        
         var todo = new Todo(req.body);
         todo.save()
             .then(result => {
@@ -91,7 +92,7 @@ module.exports = function (app, config) {
     router.route('/todos/:id').delete((req, res, next) => {
         logger.log('info', 'Get todo %s' + req.params.id);
 
-        Todo.remove({ _id: req.params.id })
+        Todo.remove({_id:req.params.id})
             .then(Todo => {
                 res.status(200).json({ msg: "Todo Deleted" });
             })

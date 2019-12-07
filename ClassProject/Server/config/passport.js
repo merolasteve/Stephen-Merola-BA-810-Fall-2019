@@ -26,6 +26,7 @@ var localLogin = new localStrategy(localOptions, function (email, password, next
         })
         .catch(function (err) { return next(err); });
 });
+
 generateToken = function (user) {
     return jwt.sign(user, config.secret, {
         expiresIn: 10000
@@ -46,6 +47,7 @@ login = function (req, res, next) {
     var userInfo = setUserInfo(req.user);
     res.status(200).json({ token: generateToken(userInfo), user: req.user });
 };
+
 var jwtOptions = {
     jwtFromRequest: extractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: config.secret

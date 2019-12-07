@@ -34,6 +34,7 @@ module.exports = function (app, config) {
 
     router.route('/users').post((req, res, next) => {
         logger.log('info', 'Create user');
+
         var user = new User(req.body);
         user.save()
             .then(result => {
@@ -56,25 +57,25 @@ module.exports = function (app, config) {
     });
     */
 
-    router.route('/users/login').post(requireLogin, login),
+    router.route('/users/login').post(requireLogin, login);
 
 
-        router.route('/users/:id').get((req, res, next) => {
-            logger.log('info', 'Get user %s', req.params.id);
+    router.route('/users/:id').get((req, res, next) => {
+        logger.log('info', 'Get user %s', req.params.id);
 
-            User.findById(req.params.id)
-                .then(user => {
-                    if (user) {
-                        res.status(200).json(user);
-                    } else {
-                        res.status(404).json({ message: "No user found" });
-                    }
-                })
-                .catch(error => {
-                    return next(error);
-                });
+        User.findById(req.params.id)
+            .then(user => {
+                if (user) {
+                    res.status(200).json(user);
+                } else {
+                    res.status(404).json({ message: "No user found" });
+                }
+            })
+            .catch(error => {
+                return next(error);
+            });
 
-        });
+    });
 
     router.route('/users/:id').put((req, res, next) => {
         logger.log('info', 'Get user %s', req.params.id);

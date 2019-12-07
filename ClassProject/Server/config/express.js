@@ -30,8 +30,8 @@ module.exports = function (app, config) {
         });
     }
 
-    app.use(cors({orgin:'http://localhost:9000'}));
-    
+    app.use(cors({ orgin: 'http://localhost:9000' }));
+
     app.use(morgan('dev'));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
@@ -71,8 +71,6 @@ module.exports = function (app, config) {
             res.status(500).send('500 Sever Error');
         }
     });
-
-
 
     //console.log("Starting application");saw this in video 
     logger.log('info', "Starting Application");
