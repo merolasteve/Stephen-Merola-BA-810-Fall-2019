@@ -29,7 +29,7 @@ module.exports = function (app, config) {
     router.route('/todos/user/:id').get((req, res, next) => {
         logger.log('info', 'Get all user todos' + req.params.id);
 
-        var query = Todo.find({_id:req.params.id})
+        var query = Todo.find({userid:req.params.id})
             .sort(req.query.order)
             .exec()
             .then(result => {
