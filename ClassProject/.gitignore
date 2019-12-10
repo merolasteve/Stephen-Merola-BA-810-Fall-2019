@@ -1,6 +1,6 @@
 node_modules/
 ClientPracticeExam/
-ServerPracticeExam/ git rm --cached
+ServerPracticeExam/
 client/
 Server/
 ServerExam/
