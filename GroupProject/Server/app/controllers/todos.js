@@ -29,7 +29,7 @@ module.exports = function (app, config) {
     router.route('/todos/user/:id').get((req, res, next) => {
         logger.log('info', 'Get all user todos' + req.params.id);
 
-        var query = Todo.find({userid:req.params.id}) //{userid:req.params.id} - Goes in parentheses
+        var query = Todo.find() //{userid:req.params.id} - Goes in parentheses - remove to make lists appear for all users
             .sort(req.query.order)
             .exec()
             .then(result => {
