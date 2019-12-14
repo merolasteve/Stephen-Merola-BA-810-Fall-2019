@@ -1,29 +1,29 @@
 <template>
     <form>
         <div class="form-group">
-            <label for="todoFullName">Name</label>
+            <label for="todoFullName"><b>Name:</b></label>
             <input value.bind="todo.selectedTodo.fullName" type="text" class="form-control" id="todoFullName"
                 placeholder="First Name, Last Name">
         </div>
         <div class="form-group">
-            <label for="todoInput">Food/Beverage</label>
+            <label for="todoInput"><b>Food/Beverage:</b></label>
             <input value.bind="todo.selectedTodo.todo" type="text" class="form-control" id="todoInput"
                 placeholder="Food/Beverage">
         </div>
         <div class="form-group">
-            <label for="todoDetail">Additional Notes</label>
+            <label for="todoDetail"><b>Additional Notes:</b></label>
             <textarea value.bind="todo.selectedTodo.detail" class="form-control" id="todoDetail" rows="5"
                 placeholder="Add any additional information here."></textarea>
         </div>
         <div class="form-group">
-            <label for="todoDishType">Dish Type</label>
+            <label for="todoDishType"><b>Dish Type:</b></label>
             <select value.bind="todo.selectedTodo.dishType" class="form-control" id="todoDishType">
-                <option value=""><i>Choose One</i></option>
+                <option value="">Choose One</option>
                 <option repeat.for="dishType of dishTypes" model.bind="dishType">${dishType}</option>
             </select>
         </div>
         <div class="form-group">
-            <label for="todoStatus">Need Oven?</label>
+            <label for="todoStatus"><b>Need Oven?:</b></label>
             <select value.bind="todo.selectedTodo.status" class="form-control" id="todoStatus">
                 <option repeat.for="status of statuses" model.bind="status">${status}</option>
             </select>

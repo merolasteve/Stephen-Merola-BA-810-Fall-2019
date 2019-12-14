@@ -8,7 +8,7 @@ export class Todos {
     this.todo = todo;
     this.userObj = JSON.parse(sessionStorage.getItem('userObj'));
     this.statuses = ['Yes', 'No'];
-    this.isCheckedCompleted = true;
+    this.isCheckedCompleted = false;
     this.dishTypes = ['Side Dish', 'Main Course', 'Desert', 'Beverage'];
   }
 
