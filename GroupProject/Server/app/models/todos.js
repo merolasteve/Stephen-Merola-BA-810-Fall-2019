@@ -9,7 +9,7 @@ var TodosSchema = new Schema({
     dateCreated: { type: Date, default: Date.now },
     dateDue: { type: Date, default: Date.now },
     status: { type: String, Enum: ['Yes', 'No'], default: 'No' },
-    dishType: { type: String, Enum: ['Main Course', 'Side Dish', 'Desert'], default: 'Side Dish' },
+    dishType: { type: String, Enum: ['Side Dish', 'Main Course', 'Desert', 'Beverage'] },
 
     file: {
         name: { type: String },

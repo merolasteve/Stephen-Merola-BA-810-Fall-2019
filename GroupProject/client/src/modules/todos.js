@@ -9,7 +9,7 @@ export class Todos {
     this.userObj = JSON.parse(sessionStorage.getItem('userObj'));
     this.statuses = ['Yes', 'No'];
     this.isCheckedCompleted = true;
-    this.dishTypes = ['Main Course', 'Side Dish', 'Desert'];
+    this.dishTypes = ['Side Dish', 'Main Course', 'Desert', 'Beverage'];
   }
 
   //constructor(todo) {
