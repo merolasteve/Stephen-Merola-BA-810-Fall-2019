@@ -9,7 +9,15 @@ export class Todos {
     this.userObj = JSON.parse(sessionStorage.getItem('userObj'));
     this.statuses = ['Yes', 'No'];
     this.isCheckedCompleted = true;
+    this.dishTypes = ['Main Course', 'Side Dish', 'Desert'];
   }
+
+  //constructor(todo) {
+    //this.todo = todo;
+    //this.userObj = JSON.parse(sessionStorage.getItem('userObj'));
+    //this.dishTypes = ['Main Course', 'Side Dish', 'Desert'];
+    //this.isCheckedCompleted = true;
+  //}
 
   async attached() {
     await this.getTodos();
@@ -21,6 +29,11 @@ export class Todos {
   }
 
   updateTodo(todo) {
+    this.todo.selectedTodo = todo;
+    this.saveTodo();
+  }
+
+  updateDataType(todo) {
     this.todo.selectedTodo = todo;
     this.saveTodo();
   }

@@ -14,6 +14,7 @@
             <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Food/Beverage</th>
+                <th scope="col">Dish Type</th>
                 <th scope="col">Oven</th>
                 <th></th>
             </tr>
@@ -22,6 +23,11 @@
             <tr repeat.for="todo of todo.todosArray | filterTodos:isCheckedCompleted">
                 <td>${todo.fullName}</td>
                 <td scope="row" click.delegate="editTodo(todo)">${todo.todo}</td>
+                <td>
+                    <select change.delegate="updateTodo(todo)" value.bind="todo.dishType" class="form-control"
+                        id="todoDishType">
+                        <option repeat.for="dishType of dishTypes" value.bind="dishType">${dishType}</option>
+                    </select>
                 <td>
                     <select change.delegate="updateTodo(todo)" value.bind="todo.status" class="form-control"
                         id="todoStatus">

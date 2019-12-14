@@ -16,6 +16,12 @@
                 placeholder="Add any additional information here."></textarea>
         </div>
         <div class="form-group">
+            <label for="todoDishType">Dish Type</label>
+            <select value.bind="todo.selectedTodo.dishType" class="form-control" id="todoDishType">
+                <option repeat.for="dishType of dishTypes" model.bind="dishType">${dishType}</option>
+            </select>
+        </div>
+        <div class="form-group">
             <label for="todoStatus">Need Oven?</label>
             <select value.bind="todo.selectedTodo.status" class="form-control" id="todoStatus">
                 <option repeat.for="status of statuses" model.bind="status">${status}</option>

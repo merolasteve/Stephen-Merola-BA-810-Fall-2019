@@ -14,6 +14,7 @@ export class Todo {
         this.selectedTodo.todo = "";
         this.selectedTodo.detail = "";
         this.selectedTodo.dateDue = new Date();
+        this.selectedTodo.dishType = "Todo";
         this.selectedTodo.status = "Todo";
         this.selectedTodo.userid = id;
     }
